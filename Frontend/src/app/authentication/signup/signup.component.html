@@ -1,0 +1,59 @@
+<div class="d-flex align-items-stretch min-height-100 h-100">
+    <div class="bg-cover d-none d-md-inline-flex col-md-6 col-lg-8" style="background-image: url(assets/images/riseup-summit-cairo.png)"></div>
+  <div class="card card-body mb-0 rounded-0 p-5 col-sm-12 col-md-6 col-lg-4" >
+
+      <form name="form" #f="ngForm" novalidate style="background-color: white; overflow:scroll; overflow-x:hidden">
+          <div class="mb-3" style="background-color: white">
+              <img src="assets/images/main-logo.png" alt="" style="width: 150px">
+              <p class="ff-headers text-uppercase">Create an account</p>
+          </div>
+        <label> First Name </label>
+        <fieldset class="form-group">
+          <input type="text" class="control-form" name="firstName" placeholder="First name" [(ngModel)]="user.firstname" #firstName="ngModel" required />
+          <div *ngIf="b.submitted && !firstName.valid" style="color:red;">First Name is required</div>
+        </fieldset>
+        <label>Last Name</label>
+        <fieldset class="form-group">
+          <input type="text" class="control-form" name="lastName" placeholder="Last name" [(ngModel)]="user.lastname" #lastName="ngModel" required />
+          <div *ngIf="b.submitted && !lastName.valid" style="color:red;">Last Name is required</div>
+        </fieldset>
+        <label>Email</label>
+        <fieldset class="form-group">
+          <input type="email" class="control-form" name="email" placeholder="user@mail.com" [(ngModel)]="user.email" #email="ngModel" required />
+          <div *ngIf="b.submitted && !email.valid" style="color:red;">Email is required</div>
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Password &nbsp;<span> (Must be 8 characters long)</span></label>
+          <input type="password" class="control-form" name="password" placeholder="*******"[(ngModel)]="user.password" pattern = ".{8,}" #password="ngModel" required />
+          <div *ngIf="b.submitted && !password.valid" style="color:red;">Password too short</div>
+        </fieldset>
+        <label>Birthdate</label>
+        <fieldset class="form-group">
+          <input type="text" class="control-form" name="birthdate" placeholder="dd/mm/yyyy"[(ngModel)]="user.birthdate" #birthdate="ngModel" required />
+          <div *ngIf="b.submitted && !birthdate.valid" style="color:red;">Birthdate is required</div>
+        </fieldset> 
+        <label>Interests</label>
+        <fieldset>
+        <input type="text" class="control-form" name="tag" [(ngModel)]="user.tag" placeholder="Tag" />
+        <button class="btn btn-warning" (click)="addTag()">Add Tag</button>
+        <button class="btn btn-warning" (click)="removeTag()">Undo</button>
+        <div ng-control="myCtrl">
+        <ul>
+          <li *ngFor="let tag of tags">
+            <span>{{tag}}</span>
+          </li>
+        </ul>
+      </div>
+      </fieldset>
+         <form name="form" #b="ngForm" novalidate>
+          <button class="btn btn-outline-warning" (click) = "b.form.valid && signUp()" >CREATE ACCOUNT</button>
+         </form>
+         <div id="alert" style="visibility: hidden" role="alert" class="alert alert-danger alert-dismissible">
+            <!----><button (click) = "close()" aria-label="Close" class="close" type="button">
+                  <span aria-hidden="true">×</span>
+            </button>
+            {{signupResponse}}
+        </div>
+      </form>
+  </div>
+  </div>

@@ -1,0 +1,36 @@
+<div class="d-flex align-items-stretch min-height-100 h-100">
+  
+  <div class="card card-body mb-0 rounded-0 p-5 col-sm-12 col-md-6 col-lg-4">
+    <form [formGroup]="form" (ngSubmit)="changePassword()">
+      <div class="mb-3">
+        <p class="ff-headers text-uppercase">Change Password</p>
+      </div>
+      <fieldset class="form-group" [ngClass]="{'has-danger': form.controls['uname'].hasError('required') && form.controls['uname'].touched}">
+        <label for="username" class="form-control-label">
+          Old Password
+        </label>
+        <input type="password" class="form-control" placeholder="Enter Old Password" [formControl]="form.controls['uname']" [ngClass]="{'form-control-danger': form.controls['uname'].hasError('required') && form.controls['uname'].touched}" [(ngModel)] = "oldpassword"/>
+        <div class="form-control-feedback" *ngIf="form.controls['uname'].hasError('required') && form.controls['uname'].touched" style="color:red;">Old Password is required.</div>
+      </fieldset>
+      <fieldset class="form-group" [ngClass]="{'has-danger': form.controls['password'].hasError('required') && form.controls['password'].touched}">
+        <label for="password" class="form-control-label">
+          New Password
+        </label>
+        <input type="password" class="form-control" placeholder="Enter New Password" [formControl]="form.controls['password']" [ngClass]="{'form-control-danger': form.controls['password'].hasError('required') && form.controls['password'].touched}" [(ngModel)] = "newpassword"/>
+        <div class="form-control-feedback" *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" style="color:red;">New Password is required.</div>
+      </fieldset>
+      <div class="block"></div>
+
+      <button type="button" class="btn btn-warning mr-1 mb-1" type="submit" [disabled]="!form.valid">ChangePassword</button>
+
+      <div id="erroralert" style="visibility: hidden" role="alert" class="alert alert-danger alert-dismissible">
+        <button (click) = "closeErrorAlert()" aria-label="Close" class="close" type="button"> <span aria-hidden="true">×</span></button>
+        {{ errorMsg }}
+      </div>
+      <div id="successalert" style="visibility: hidden" role="alert" class="alert alert-success alert-dismissible">
+        <button (click) = "closeSuccessAlert()" aria-label="Close" class="close" type="button"> <span aria-hidden="true">×</span></button>
+        {{ successMsg }}
+      </div>
+    </form>
+  </div>
+</div>

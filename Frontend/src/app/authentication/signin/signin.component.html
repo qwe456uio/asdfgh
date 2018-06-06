@@ -1,0 +1,34 @@
+<div class="d-flex align-items-stretch min-height-100 h-100">
+  <div class="bg-cover bg-1 d-none d-md-inline-flex col-md-6 col-lg-8"></div>
+  <div class="card card-body mb-0 rounded-0 p-5 col-sm-12 col-md-6 col-lg-4">
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="mb-3">
+          <img src="assets/images/main-logo.png" alt="" style="width: 150px">
+        <p class="ff-headers text-uppercase">Sign in to your account</p>
+      </div>
+      <fieldset class="form-group" [ngClass]="{'has-danger': form.controls['uname'].hasError('required') && form.controls['uname'].touched}">
+        <label for="username" class="form-control-label">
+          Enter your Email
+        </label>
+        <input type="text" class="form-control" placeholder="Email" [formControl]="form.controls['uname']" [ngClass]="{'form-control-danger': form.controls['uname'].hasError('required') && form.controls['uname'].touched}" [(ngModel)] = "username"/>
+        <div class="form-control-feedback" *ngIf="form.controls['uname'].hasError('required') && form.controls['uname'].touched" style="color:red;">Email is required.</div>
+      </fieldset>
+      <fieldset class="form-group" [ngClass]="{'has-danger': form.controls['password'].hasError('required') && form.controls['password'].touched}">
+        <label for="password" class="form-control-label">
+          Enter your Password
+        </label>
+        <input type="password" class="form-control" placeholder="********" [formControl]="form.controls['password']" [ngClass]="{'form-control-danger': form.controls['password'].hasError('required') && form.controls['password'].touched}" [(ngModel)] = "password"/>
+        <div class="form-control-feedback" *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" style="color:red;">Password is required.</div>
+      </fieldset>
+      <div class="block"></div>
+
+      <button type="button" class="btn btn-warning mr-1 mb-1" type="submit" [disabled]="!form.valid">Login</button>
+      <button type="button" class="btn btn-outline-warning mr-1 mb-1" [routerLink]="['/authentication/signup']">Create an account</button>
+
+      <div id="alert" style="visibility: hidden" role="alert" class="alert alert-danger alert-dismissible">
+        <button (click) = "closeAlert()" aria-label="Close" class="close" type="button"> <span aria-hidden="true">×</span></button>
+        {{errorMsg}}
+      </div>
+    </form>
+  </div>
+</div>

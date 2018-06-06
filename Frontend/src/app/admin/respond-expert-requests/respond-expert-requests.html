@@ -1,0 +1,40 @@
+<h2>Expert Requests</h2>
+<div id="alert" class="alert alert-danger alert-dismissible col-auto mr-auto" *ngIf = "notfound" role="alert">
+  There are no pending expert requests.
+    </div>
+
+  <div _ngcontent-c9="" class="col-lg-4 col-md-6">
+        <div _ngcontent-c9="" class="card" style="width: 70rem" *ngFor="let request of requests">
+          <div _ngcontent-c9="" class="card-header">
+                
+                <br/>
+            <h4>
+                <span class="badge badge-pill badge-danger"  *ngIf="request.status=='rejected'">{{request.status}}</span>
+            </h4>
+                <h4>
+                <span class="badge badge-pill badge-primary" *ngIf="request.status=='pending'">{{request.status}}</span>
+            </h4>
+        <h4>    
+            <span class="badge badge-pill badge-success"  *ngIf="request.status=='approved'">{{request.status}}</span>
+        </h4>    
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3><a style="color:DeepSkyBlue ;"> {{request.user}}</a></h3>
+            </div>
+          <div _ngcontent-c9="" class="card-body">
+                <br/>
+                <h5 class="card-title">Years Of Experience: {{request.yearsOfExp}}</h5>
+                <br/>
+                <h5 class="card-title">CV Info: {{request.cvLink}}</h5>
+                
+                <h4><span class="badge badge-pill badge-warning" *ngFor="let tag of request.tags" >#{{tag}}</span></h4>
+                <br/>
+            <p _ngcontent-c9="" class="card-text">
+              {{request.proposal}}
+            </p>
+            
+          <button class="btn btn-danger mr-1 mb-1" style="float: right; "(click)="RejectExpertRequest(request._id)">Reject</button>
+          
+          <button class="btn btn-success mr-1 mb-1" style="float: right;" (click)="ApproveExpertRequest(request._id)">Approve</button>
+          </div>
+        </div>
+      </div>
