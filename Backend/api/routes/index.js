@@ -1,6 +1,6 @@
 var express = require('express');
 var router  = express.Router();
-var ExpertController = require('../controllers/ExpertController');
+//var ExpertController = require('../controllers/ExpertController');
 var jwt     = require('jsonwebtoken');
 
 var isAuthenticated = function(req, res, next) {
@@ -28,7 +28,7 @@ var isNotAuthenticated = function(req, res, next) {
   };
 
 //--------------USER------------------
-router.post('/user/signUp', user.signUp);
+//router.post('/user/signUp', user.signUp);
 
 
 module.exports = router;

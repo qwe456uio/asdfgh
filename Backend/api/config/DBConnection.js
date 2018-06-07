@@ -57,4 +57,9 @@ mongoose.connect(dburl, function(err) {
   });
 });
 
-//require('../models/User');
+require('../models/Admin');
+require('../models/Client');
+require('../models/Ticket');
+require('../models/Comment');
+require('../models/Engineer');
+require('../models/Secretary');

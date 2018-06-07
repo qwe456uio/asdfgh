@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var SecretarySchema = new Schema({
+var EngineerSchema = new Schema({
     username:{
         type:String,
         required:true,
@@ -39,6 +39,6 @@ var SecretarySchema = new Schema({
               trim: true
           }
   });
-mongoose.model('Secretary', SecretarySchema);
+mongoose.model('Engineer', EngineerSchema);
 
   

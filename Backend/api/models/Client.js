@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var SecretarySchema = new Schema({
+var ClientSchema = new Schema({
     username:{
         type:String,
         required:true,
@@ -9,18 +9,6 @@ var SecretarySchema = new Schema({
         unique:true,
         lowercase:true
       },  
-      firstName: {
-          type: String,
-          required: true,
-          lowercase: true,
-          trim: true
-        },
-        lastName: {
-          type: String,
-          required: true,
-          lowercase: true,
-          trim: true
-        },
       email: {
             type: String,
             unique: true,
@@ -37,8 +25,22 @@ var SecretarySchema = new Schema({
               type: Number,
               required: true,
               trim: true
+          },
+          companyName:{
+              type: String,
+              required: true,
+              trim: true,
+          },
+          branchName:{
+            type: String,
+            required: true,
+            trim: true,            
+          },
+          address:{
+            type: String,
+            required: true,
+            trim: true,
           }
   });
-mongoose.model('Secretary', SecretarySchema);
 
-  
+mongoose.model('Client', ClientSchema);

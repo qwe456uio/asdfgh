@@ -4,13 +4,6 @@ var Validations = require('../utils/Validations');
 var config      = require('../config/Config');
 var EmailRegex  = config.EMAIL_REGEX;
 var Admin          = mongoose.model('Admin');
-var User           = mongoose.model('User');
-var Expert         = mongoose.model('Expert');
-var ExpertRequests = mongoose.model('ExpertRequests');
-var Session        = mongoose.model('Session');
-var SessionRequests = mongoose.model('SessionRequests');
-var Question = mongoose.model('Question');
-var Notification = mongoose.model('Notification');
 const bcrypt = require('bcryptjs');
 
 module.exports = 
@@ -18,29 +11,64 @@ module.exports =
     logIn : async (req, res, next) =>
     {
         //Validates email and password
-        var email    = req.body.email;
+        var username    = req.body.username;
         var password = req.body.password;
-        var valid    = Validations.isString(email) && Validations.isString(password) &&
-                        Validations.matchesRegex(email, EmailRegex) && email && password;
+        var valid    = Validations.isString(username) && Validations.isString(password) && username && password;
 
         //return error in case of missing fields or wrong format
         if(!valid)
-            return res.status(403).json({error : "Missing Fields or Wrong Email format"});
+            return res.status(403).json({error : "Missing Fields or Wrong username format"});
 
-        var adminInTable = await Admin.findOne({"email" : email});
+        var adminInTable = await Admin.findOne({"username" : username});
+        var clientInTable = await Client.findOne({"username" : username});
+        var secretaryInTable = await Secretary.findOne({"username" : username});
+        var engineerInTable = await Engineer.findOne({"username" : username});
         if(adminInTable)
         {
             var isValidPassword = await adminInTable.isValidPassword(password);
             if(isValidPassword)
             {
                 //Generates JWT token 
-                var token = jwt.sign({admin : adminInTable.toObject()}, req.app.get('secret'), {expiresIn : '12h'});
-                return res.status(200).json({ err: null, msg: 'Welcome', data: token });
+                var token = jwt.sign({user : adminInTable.toObject()}, req.app.get('secret'), {expiresIn : '12h'});
+                return res.status(200).json({ err: null, msg: 'Welcome', data: token, type:'Admin' });
+            }
+            return res.status(403).json({error : "Wrong Password"});
+        }
+        else if(clientInTable)
+        {
+            var isValidPassword = await clientInTable.isValidPassword(password);
+            if(isValidPassword)
+            {
+                //Generates JWT token 
+                var token = jwt.sign({user : clientInTable.toObject()}, req.app.get('secret'), {expiresIn : '12h'});
+                return res.status(200).json({ err: null, msg: 'Welcome', data: token, type:'Client'});
+            }
+            return res.status(403).json({error : "Wrong Password"});
+        }
+        else if(secretaryInTable)
+        {
+            var isValidPassword = await secretaryInTable.isValidPassword(password);
+            if(isValidPassword)
+            {
+                //Generates JWT token 
+                var token = jwt.sign({user : secretaryInTable.toObject()}, req.app.get('secret'), {expiresIn : '12h'});
+                return res.status(200).json({ err: null, msg: 'Welcome', data: token, type:'Secretary'});
+            }
+            return res.status(403).json({error : "Wrong Password"});
+        }
+        else if(engineerInTable)
+        {
+            var isValidPassword = await engineerInTable.isValidPassword(password);
+            if(isValidPassword)
+            {
+                //Generates JWT token 
+                var token = jwt.sign({user : engineerInTable.toObject()}, req.app.get('secret'), {expiresIn : '12h'});
+                return res.status(200).json({ err: null, msg: 'Welcome', data: token, type:'Engineer'});
             }
             return res.status(403).json({error : "Wrong Password"});
         }
 
-        return res.status(403).json({error : "Wrong Email"});        
+        return res.status(403).json({error : "Wrong Username"});        
     },
 
     createNewAdmin : async (req, res, next) =>
