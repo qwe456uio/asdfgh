@@ -39,7 +39,20 @@ var TicketSchema = new Schema({
     priority:{
         type: String,
         enum : ['High','Medium','Low']
-    }
+    },
+    title:{
+        type: String,
+        required: true,
+        trim:true
+    },
+    description:{
+        type: String,
+        required: true,
+        trim:true    
+    },
+    //IMAGE TODO
+
+
     
 });
 
